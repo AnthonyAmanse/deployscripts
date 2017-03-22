@@ -130,8 +130,8 @@ deploy_container() {
         fi
     fi
     # run the container and check the results
-    log_and_echo "run the container: $IC_COMMAND run --name ${MY_CONTAINER_NAME} --link ${POSTGRESQL_NAME}:postgresql --link ${REDISNAME}:redis ${MEMORY} ${OPTIONAL_ARGS} ${BIND_PARMS} ${IMAGE_NAME} "
-    ice_retry run --name ${MY_CONTAINER_NAME} --link ${POSTGRESQL_NAME}:postgresql --link ${REDISNAME}:redis ${MEMORY} ${OPTIONAL_ARGS} ${BIND_PARMS} ${IMAGE_NAME} 2> /dev/null
+    log_and_echo "run the container: $IC_COMMAND run --name ${MY_CONTAINER_NAME} ${MEMORY} ${OPTIONAL_ARGS} ${BIND_PARMS} ${IMAGE_NAME} "
+    ice_retry run --name ${MY_CONTAINER_NAME} ${MEMORY} ${OPTIONAL_ARGS} ${BIND_PARMS} ${IMAGE_NAME} 2> /dev/null
     RESULT=$?
     if [ $RESULT -ne 0 ]; then
         log_and_echo "$ERROR" "Failed to deploy ${MY_CONTAINER_NAME} using ${IMAGE_NAME}"
@@ -243,6 +243,7 @@ deploy_red_black () {
     fi
  
     log_and_echo "${green}Public IP address of ${CONTAINER_NAME}_${BUILD_NUMBER} is ${FLOATING_IP} and the TEST_URL is ${TEST_URL} ${no_color}"
+	ice_retry ip release ${FLOATING_IP}
 }
 
 clean() {
