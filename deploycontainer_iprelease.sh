@@ -209,7 +209,8 @@ deploy_red_black () {
                 log_and_echo "$ERROR" "Could not request a new, or reuse an existing IP address "
                 dump_info
                 ${EXT_DIR}/utilities/sendMessage.sh -l bad -m "Failed deployment of ${MY_CONTAINER_NAME}.  Unable to allocate IP address. $(get_error_info)"
-                exit 1
+                exit 0
+		# exit 0 if no ip found
             else
                 # strip off junk
                 temp="${FLOATING_IP%\"}"
