@@ -17,10 +17,7 @@
 
 # load helper functions
 source $(dirname "$0")/deploy_utilities.sh
-POSTGRESQL_NAME=$(ice_retry ps | grep "pgsql" | rev | awk '{print $1}' | rev)
-echo ${POSTGRESQL_NAME}
-REDISNAME=$(ice_retry ps | grep "redis" | rev | awk '{print $1}' | rev)
-echo ${REDISNAME}
+
 insert_inventory(){
     update_inventory $1 $2 "insert"
 }
